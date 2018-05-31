@@ -40,6 +40,13 @@
       <version>2.21.0</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>3.12.0</version>
+    </dependency>
+
     <!-- https://mvnrepository.com/artifact/ru.yandex.qatools.allure/allure-testng-adaptor -->
     <dependency>
            <groupId>ru.yandex.qatools.allure</groupId>
