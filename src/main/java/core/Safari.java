@@ -1,42 +1,59 @@
 package core;
 
+import java.util.concurrent.TimeUnit;
+import java.util.logging.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.safari.*;
  
 public class Safari {
+	
+		static WebDriver driver;
  
-       public static void main(String[] args) throws InterruptedException {
-			WebDriver driver;
-			driver = new SafariDriver(); 
+        public static void main(String[] args) throws InterruptedException {
+    	   
+	    	// Disable the logs
+	   		Logger logger = Logger.getLogger("");
+	   		logger.setLevel(Level.OFF);
+    	    
+    	    // We are checking, if system is Mac
+    		if (!System.getProperty("os.name").toUpperCase().contains("MAC"))
+    			throw new IllegalArgumentException("Safari is available only on Mac");
+    	    
+			driver = new SafariDriver();
+			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
 			driver.manage().window().maximize();
  
             System.out.println("Browser is: Safari");
             driver.get("http://facebook.com/");
 
-            Thread.sleep(1000); // Pause in milliseconds (1000 – 1 sec)
+            //Thread.sleep(1000); // Pause in milliseconds (1000 – 1 sec)
  
             System.out.println("Title: " + driver.getTitle());
             String copyright = driver.findElement(By.xpath("//*[@id=\"pageFooter\"]/div[3]/div/span")).getText();
             System.out.println("Copyright: " + copyright);
-            driver.findElement(By.id("email")).sendKeys("email");
+            
+            driver.findElement(By.id("email")).clear();
+            driver.findElement(By.id("email")).sendKeys("lo.sso.test5@rambler.ru");
 
-            driver.findElement(By.id("pass")).sendKeys("password");
-            driver.findElement(By.xpath("//*[@id=\"u_0_2\"]")).click();
+            driver.findElement(By.id("pass")).clear();
+            driver.findElement(By.id("pass")).sendKeys("Lo@#$SSOtest1_2");
             
-            Thread.sleep(10000); // Pause in milliseconds (10000 – 10 sec)
+            driver.findElement(By.xpath("//*[@id=\"loginbutton\"]/input")).click();
             
-            String contacts = driver.findElement(By.xpath("//*[@id=\"u_0_20\"]/div/div/div[3]/div/div")).getText();
-            System.out.println("Logged in was successfull Contacts is: " + contacts);
+            Thread.sleep(3000); // Pause in milliseconds (10000 – 10 sec)         
             
+            driver.findElement(By.xpath("//*[@id=\"u_0_a\"]/div[1]/div[1]/div/a/span/span")).click();
             
-            //driver.findElement(By.xpath("//aria-label[text()=\"Search\"]/../input")).sendKeys("Elena");
- 
-            //driver.findElement(By.xpath("//*[@id=\"profile_pic_header_100009347579231\"/span")).click();
- 
-            //String friends = driver.findElement(By.xpath("//*[@id=\"u_fetchstream_2_a\"]/li[3]/a/span[1]")).getText();
-            //System.out.println("You have " + friends + " friends");
-			//driver.findElement(By.xpath("//*[@id=\"userNavigationLabel\"]")).click();
-			//driver.findElement(By.xpath("//*[@id=\"js_e6\"]/div/div/ul/li[14]/a/span/span")).click(); 
+            Thread.sleep(3000); // Pause in milliseconds (10000 – 10 sec)                
+            
+            String friends = driver.findElement(By.xpath("//span[@class=\"_gs6\"]")).getText();
+            
+            System.out.println("You have " + friends + " friends");
+            
+            driver.findElement(By.xpath("//div[@id=\"logoutMenu\"]/a[1]")).click();   
+                    
+            driver.findElement(By.xpath("//span[@class=\"_54nh\"][text()=\"Log Out\"]"));
+            
 			driver.quit();
        }
 }
