@@ -33,10 +33,10 @@ public class Safari {
             System.out.println("Copyright: " + copyright);
             
             driver.findElement(By.id("email")).clear();
-            driver.findElement(By.id("email")).sendKeys("lo.sso.test5@rambler.ru");
+            driver.findElement(By.id("email")).sendKeys("email");
 
             driver.findElement(By.id("pass")).clear();
-            driver.findElement(By.id("pass")).sendKeys("Lo@#$SSOtest1_2");
+            driver.findElement(By.id("pass")).sendKeys("***");
             
             driver.findElement(By.xpath("//*[@id=\"loginbutton\"]/input")).click();
             
